@@ -1,0 +1,59 @@
+<div class="min-h-screen flex items-center justify-center bg-stone-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8" @slideIn>
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-serif text-stone-700">Admin Sign In</h2>
+      <p class="mt-2 text-center text-sm text-stone-500">
+        Log in to manage Clothify
+      </p>
+    </div>
+    <form [formGroup]="adminSignInForm" (ngSubmit)="onSubmit()" class="mt-8 space-y-6">
+      <div class="rounded-md shadow-sm -space-y-px">
+        <div>
+          <label for="email" class="sr-only">Email address</label>
+          <input 
+            id="email" 
+            type="email" 
+            formControlName="email" 
+            class="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-stone-300 placeholder-stone-400 text-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-stone-500 sm:text-sm transition-all duration-300"
+            placeholder="Email address"
+          >
+          <div *ngIf="adminSignInForm.get('email')?.invalid && adminSignInForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="adminSignInForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="adminSignInForm.get('email')?.errors?.['email']">Invalid email format</span>
+          </div>
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input 
+            id="password" 
+            type="password" 
+            formControlName="password" 
+            class="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-stone-300 placeholder-stone-400 text-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-stone-500 sm:text-sm transition-all duration-300"
+            placeholder="Password"
+          >
+          <div *ngIf="adminSignInForm.get('password')?.invalid && adminSignInForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="adminSignInForm.get('password')?.errors?.['required']">Password is required</span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="text-red-500 text-sm text-center">
+        {{ errorMessage }}
+      </div>
+
+      <div>
+        <button 
+          type="submit" 
+          [disabled]="adminSignInForm.invalid"
+          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-stone-600 hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 disabled:opacity-50 active:scale-95 transition-all duration-200"
+        >
+          Sign In
+        </button>
+      </div>
+    </form>
+    <p class="mt-2 text-center text-sm text-stone-500">
+      Not an admin? 
+      <a routerLink="/sign-in" class="font-medium text-stone-600 hover:text-stone-500">Sign in as customer</a>
+    </p>
+  </div>
+</div>
